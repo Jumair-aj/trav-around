@@ -30,10 +30,51 @@
 }
 .modal-header,.modal-footer{
     padding: 10px;
+    display: flex;
+    justify-content: center;
+
 }
 
 .modal-title{
     margin: 0;
+    display: flex;
+    background-color: aqua;
+    border-radius: 50px;
+    width: 75%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+}
+
+.modal-title h1{
+    font-size: 1.3rem;
+    /* margin: auto; */
+}
+.moving-btn{
+    position: absolute;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease-in-out;
+}
+.moving-login-btn{
+    transform: translateX(170px);
+}
+
+.form{
+    display: none;
+}
+
+.signin-form{
+    display: block;
+}
+
+.login-form{
+    display: block;
 }
 
 .modal-body{

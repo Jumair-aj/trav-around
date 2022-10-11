@@ -63,6 +63,12 @@
     transition: all 0.2s ease-out;
   }
   
+.user-name{
+  color:white;
+  text-decoration: underline;
+  cursor:pointer;
+}
+
   .fa-bars {
     color: #fff;
   }

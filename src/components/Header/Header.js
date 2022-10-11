@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import Button from '../Button/Button';
 import Modal from '../../Modal/Modal';
 import './Header.css'
+import { AuthContext } from '../../store/Context';
+import {signOut} from 'firebase/auth';
+import { auth } from '../../Firebase/config';
+
 
 function Header() {
     const [click, setClick] = useState(false);
     const[button,setButton] = useState(true);
     const [modalShow, setModalShow] = useState(false)
-
+    
     const handleClick = ()=>setClick(!click);
     const closeMobileMenu = ()=> setClick(false)
+    const {user} =useContext(AuthContext)
 
     const showButton = ()=>{
         if(window.innerWidth <= 960){
@@ -19,6 +24,11 @@ function Header() {
         else{
             setButton(true)
         }
+    }
+
+    const logout = ()=>{
+        signOut(auth)
+        
     }
 
     useEffect(() => {
@@ -64,7 +74,7 @@ function Header() {
                     </Link>
                 </li> */}
             </ul>
-            {button && <Button buttonStyle='btn--outline' onClick={()=>setModalShow(!modalShow)}>Sign Up</Button>}
+            {user ? <span className='user-name' onClick={logout}>{user.displayName}</span> : button && <Button buttonStyle='btn--outline' onClick={()=>setModalShow(!modalShow)}>Sign Up</Button>}
         </div>
     </nav>
     <Modal show = {modalShow} setClose={()=>setModalShow(false)}/>

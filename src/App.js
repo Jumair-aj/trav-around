@@ -6,8 +6,10 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Blog from './pages/Blog';
 import Gallery from './pages/Gallery';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AuthContext } from './store/Context';
+import {onAuthStateChanged} from 'firebase/auth'
+import { auth } from './Firebase/config';
 // import { useContext, useEffect } from 'react';
 // import { FirebaseContext } from './store/Context';
 
@@ -15,20 +17,22 @@ function App() {
   const [user,setUser] = useState()
    
   // const {firebase} = useContext(FirebaseContext)
-  // // onAuthStateChanged(auth, (user) => {
-    // //   if (user) {
+  // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
      
-  // //     const uid = user.uid;
+  //     const uid = user.uid;
     
-  // //   } else {
+  //   } else {
      
-  // //   }
-  // // });
-  // useEffect(() => {
-    //   firebase.onAuthStateChanged(auth, (user) =>
+  //   }
+  // });
+  
+  useEffect(() => {
+      onAuthStateChanged(auth, (currentUser) =>
+      setUser(currentUser)
+      )
     
-    
-    // }, [])
+    }, [])
     
     return (
 <AuthContext.Provider value={{user,setUser}}>
