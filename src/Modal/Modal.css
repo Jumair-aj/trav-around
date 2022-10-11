@@ -18,7 +18,7 @@
     pointer-events: visible;
 }
 .modal-content{
-    width: 500px;
+    width: 400px;
     background-color: #fff;
     transform: translateY(-200px);
     transition: all 0.3s ease-in-out;
@@ -52,7 +52,6 @@
 .signin-input{
     height: 35px;
     margin: 20px 0;
-    width: 75%;
     padding: 1%;
     font-size: 18px;
     border:none;
@@ -72,7 +71,7 @@ label {
     transition: 0.2s ease all;
     font-size: 15px;
   }
-  input:focus ~ label{
+  input:focus~label,input:valid ~ label{
     top:5px;
     font-size:12px;
   }

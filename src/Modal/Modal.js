@@ -1,19 +1,21 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
-// import { auth } from '../../firebase/Firebase';
-import { FirebaseContext } from '../store/Context';
+import React, { useCallback, useEffect, useState } from 'react'
+import { auth, db } from '../Firebase/config';
 import Button from '../components/Button/Button';
 import './Modal.css'
-// import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
+import {collection,addDoc} from 'firebase/firestore'
+
+import { useNavigate } from 'react-router-dom';
 
 function Modal(props) {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
-  const {firebase} = useContext(FirebaseContext)
   // const {setUser,user} = useContext(AuthContext)
   const {setClose} = props;
-  // const Navigate = useNavigate()
+  const userCollectionRef = collection(db,'users')
+  const Navigate = useNavigate()
 
   const escapeKeyClose = useCallback( (e) =>{
     if ((e.charCode || e.keyCode) === 27){
@@ -28,13 +30,30 @@ function Modal(props) {
     }
   }, [escapeKeyClose])
   
-  const handleSignup = (e)=>{
+  const handleSignup = async (e)=>{
     e.preventDefault()
-    firebase.getauth().createUserWithEmailAndPassword(email, password).then((result)=>{
-     
-      console.log(result)
+    try{
+    const result = await createUserWithEmailAndPassword(auth, email, password)
+    await updateProfile(result.user,{displayName:username})
+    await addDoc(userCollectionRef,{
+      id:result.user.uid,
+      phone,
+      username
     })
-  }
+    Navigate('/Blog')
+    console.log(result)
+    }catch(error){
+      console.log(error.message)
+    }
+    //   // Signed in 
+    //   const user = userCredential.user;
+    //   // ...
+    // })
+    // .catch((error) => {
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   // ..
+      }
   
   return (
     
@@ -49,19 +68,19 @@ function Modal(props) {
             <div className="modal-body">
               <form  onSubmit={handleSignup} className="signin-form">
                 <div className="field">
-                <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} className="form-username signin-input" />
-                <label>Username</label>
+                <input type="text" value={username} id='username' onChange={(e)=>setUsername(e.target.value)} className="form-username signin-input" required/>
+                <label for="username">Username</label>
                 </div>
                 <div className="field">
-                <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-email signin-input" />
+                <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-email signin-input" required/>
                 <label>Email</label>
                 </div>
                 <div className="field">
-                <input type="number" value={phone} onChange={(e)=>setPhone(e.target.value)} className="form-phone signin-input" />
+                <input type="number" value={phone} onChange={(e)=>setPhone(e.target.value)} className="form-phone signin-input" required/>
                 <label>Number</label>
                 </div>
                 <div className="field">
-                <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="form-password signin-input" />
+                <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="form-password signin-input" required/>
                 <label>Password</label>
                 </div>
                 <Button>Sign Up</Button>
