@@ -1,0 +1,8 @@
+.blog-container{
+    padding: 20px 0;
+}
+
+.blog-btn{
+    display: flex;
+    justify-content:center ;
+}

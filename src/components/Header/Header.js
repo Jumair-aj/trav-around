@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import Button from '../Button/Button';
-import Modal from '../../Modal/Modal';
+import SignupModal from '../../Modal/SignupModal';
 import './Header.css'
 import { AuthContext } from '../../store/Context';
 import {signOut} from 'firebase/auth';
@@ -77,7 +77,7 @@ function Header() {
             {user ? <span className='user-name' onClick={logout}>{user.displayName}</span> : button && <Button buttonStyle='btn--outline' onClick={()=>setModalShow(!modalShow)}>Sign Up</Button>}
         </div>
     </nav>
-    <Modal show = {modalShow} setClose={()=>setModalShow(false)}/>
+    <SignupModal show = {modalShow} setClose={()=>setModalShow(false)}/>
     </>
     )
 }
