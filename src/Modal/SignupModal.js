@@ -56,8 +56,8 @@ function Modal(props) {
     setPassword('')
     setPhone('')
     setUsername('')
-    setUser(result.user)
-      props.setClose()
+    // setUser(result.user)
+      setClose()
     console.log(result)
     }catch(error){
       console.log(error.message)
@@ -70,16 +70,16 @@ function Modal(props) {
       e.preventDefault()
       try{
       const result = await signInWithEmailAndPassword(auth, email, password)
-      await updateProfile(result.user,{displayName:username})
-      await addDoc(userCollectionRef,{
-        id:result.user.uid,
-        phone,
-        username
-      })
+      // await updateProfile(result.user,{displayName:username})
+      // await addDoc(userCollectionRef,{
+      //   id:result.user.uid,
+      //   phone,
+      //   username
+      // })
+      setUser(result.user)
       setEmail('')
       setPassword('')
-      setUser(result.user)
-      props.setClose()
+      setClose()
       console.log(result)
       }catch(error){
         console.log(error.message)

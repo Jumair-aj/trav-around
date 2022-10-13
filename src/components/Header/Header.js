@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import Button from '../Button/Button';
-import Modal from '../../Modal/Modal';
+import SignupModal from '../../Modal/SignupModal';
 import './Header.css'
 import { AuthContext } from '../../store/Context';
 import {signOut} from 'firebase/auth';
@@ -68,16 +68,16 @@ function Header() {
                         Gallery
                     </Link>
                 </li>
-                {/* <li className="nav-item">
-                    <Link to="/contact" className='nav-links' onClick={closeMobileMenu}>
-                        Contact Us
-                    </Link>
-                </li> */}
+               {!button ? <li className="nav-item" >
+
+
+                {user ? <span className='user-name' onClick={logout}>{user.displayName}</span> : button ? null : <Button buttonStyle='btn--outline' onClick={()=>{setModalShow(!modalShow);closeMobileMenu();}}>Sign Up</Button>}
+                </li>: ""}
             </ul>
             {user ? <span className='user-name' onClick={logout}>{user.displayName}</span> : button && <Button buttonStyle='btn--outline' onClick={()=>setModalShow(!modalShow)}>Sign Up</Button>}
         </div>
     </nav>
-    <Modal show = {modalShow} setClose={()=>setModalShow(false)}/>
+    <SignupModal show = {modalShow} setClose={()=>setModalShow(false)}/>
     </>
     )
 }

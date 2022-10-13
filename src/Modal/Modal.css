@@ -71,6 +71,11 @@
     display: none;
 }
 
+.create-blog-form{
+    display: block;
+
+}
+
 .signin-form{
     display: block;
 }
@@ -121,3 +126,8 @@ label {
   .field{
     position: relative;
   }
+  @media screen and (max-width: 960px) {
+    .modal {
+        top:50px;
+    }
+}
