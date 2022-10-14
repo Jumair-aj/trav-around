@@ -1,0 +1,33 @@
+.aboutus{
+    width:100%;
+}
+
+.about-container{
+    padding: 8% 5%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 2%;
+}
+
+img{
+    overflow: hidden;
+    background-size: contain;
+    width: 100%;
+    object-fit: contain;
+}
+
+.grid-items{
+    padding: 1%;
+}
+.about-heading{
+    font-size: 50px;
+}
+hr{
+    margin: 10px 0 35px;
+    width: 18%;
+    border-top:none;
+    border-bottom: 6px dotted #333;
+}
+.about-text{
+    margin: 20px 0;
+}

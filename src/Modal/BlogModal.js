@@ -65,7 +65,7 @@ function BlogModal(props) {
                     <div className="modal-body">
                     <form  onSubmit={handleNewBlog} className="form create-blog-form">
                 <div className="field">
-                <input type="text" value={heading} id='username' onChange={(e)=>setHeading(e.target.value)} className="form-username signin-input" required/>
+                <input type="text" maxLength={30} value={heading} id='username' onChange={(e)=>setHeading(e.target.value)} className="form-username signin-input" required/>
                 <label for="username">Heading</label>
                 </div>
                 <div className="field">
