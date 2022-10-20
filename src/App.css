@@ -42,3 +42,16 @@
   color: #fff;
   font-size: 100px;
 }
+::-webkit-scrollbar{
+  width: 7px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 50PX;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

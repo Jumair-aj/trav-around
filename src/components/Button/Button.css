@@ -23,6 +23,13 @@
     border: 1px solid var(--primary);
 }
 
+.btn--inline{
+    background-color: transparent;
+    color: #333;
+    padding: 8px 20px;
+    border: 1px solid #333;
+}
+
 .btn--secondary{
     color: #fff;
     background-color: #6b89eb;
@@ -41,8 +48,19 @@
     font-size: 20px;
 }
 
-.btn--medium:hover, .btn--large:hover{
+.btn--primary:hover{
+    background-color: transparent;
+    color: #fff;
+    transition: all 0.3s ease-out;
+
+}
+
+.btn--outline:hover{
     background: #fff;
     color:#242424;
     transition: all 0.3s ease-out;
+}
+.btn--inline:hover{
+    background-color: #333;
+    color: white;
 }

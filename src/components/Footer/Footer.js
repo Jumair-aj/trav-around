@@ -20,7 +20,11 @@ function Footer() {
             <div className="footer-links">
                 <div className="footer-link-wrapper">
                     <div className="footer-link-items">
-                        <h2>Quick Links</h2>
+                        <img src="images/trav-white.png" alt="" />
+                    </div>
+                    <div className="footer-link-items">
+                       
+                    <h2>Quick Links</h2>
                         <Link to="/signup">About Us</Link>
                         <Link to="/signup">Gallery</Link>
                         {/* <Link to="/signup">Videos</Link> */}
@@ -28,19 +32,10 @@ function Footer() {
                         <Link to="/signup">Contact</Link>
 
                     </div>
-                    <div className="footer-link-items">
-                        <h2>Images</h2>
-                        <Link to="/signup">How it Works</Link>
-                        <Link to="/signup">How it Works</Link>
-                        <Link to="/signup">How it Works</Link>
-                        <Link to="/signup">How it Works</Link>
-                        <Link to="/signup">How it Works</Link>
-
-                    </div>
                 </div>
-                <div className="footer-link-wrapper">
+                <div className="footer-link-wrapper footer-link-wrapper1">
                     <div className="footer-link-items">
-                        <h2>Videos</h2>
+                    <h2>Images</h2>
                         <Link to="/signup">How it Works</Link>
                         <Link to="/signup">How it Works</Link>
                         <Link to="/signup">How it Works</Link>
@@ -63,11 +58,11 @@ function Footer() {
                 <div className="social-media-wrap">
                     <div className="footer-logo">
                         <Link to="/" className="social-logo">
-                            Jr
+                            Trav Around
                         </Link>
                     </div>
                     <small className="website-rights">
-                        Jr &copy; 2022 
+                        Trav Around &copy; 2022, Designed by Jr 
                     </small>
                     <div className="social-icons">
                         <Link className="social-icon-link facebook"

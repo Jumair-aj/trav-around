@@ -20,7 +20,7 @@ function Modal(props) {
   const moving_btn = document.querySelector('.moving-btn')
   const signupForm = document.querySelector('.signin')
   const loginForm = document.querySelector('.login')
-  const {setUser} = useContext(AuthContext)
+  const {user,setUser} = useContext(AuthContext)
 
 
 
@@ -45,23 +45,28 @@ function Modal(props) {
     e.preventDefault()
     try{
     const result = await createUserWithEmailAndPassword(auth, email, password)
-    await updateProfile(result.user,{displayName:username})
-    await addDoc(userCollectionRef,{
+    console.log(result)
+    updateProfile(result.user,{displayName:username})
+    console.log(result.user.displayName)
+
+    addDoc(userCollectionRef,{
       id:result.user.uid,
       phone,
       username
     })
-    // loginClick()
-    setEmail('')
-    setPassword('')
-    setPhone('')
-    setUsername('')
-    // setUser(result.user)
-      setClose()
-    console.log(result)
-    }catch(error){
-      console.log(error.message)
-    }
+    setUser(result.user)
+    console.log(user)
+    loginClick()
+    // setEmail('')
+    // setPassword('')
+    // setPhone('')
+    // setUsername('')
+    
+    // setClose()
+    // window.location.reload();
+  }catch(error){
+    alert(error.message)
+  }
     
       }
     
@@ -82,7 +87,7 @@ function Modal(props) {
       setClose()
       console.log(result)
       }catch(error){
-        console.log(error.message)
+        alert(error.message)
       }
       
       }
@@ -108,10 +113,11 @@ function Modal(props) {
         <div className="modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
                 <div className="modal-title">
-                <h1 className='signup-btn'
-                onClick={signinClick}>Sign Up</h1>  
+                <div className="signup-header"><h1 className='signup-btn'
+                onClick={signinClick}>Sign Up</h1></div>
+                <div className="login-header">  
                 <h1 className='login-btn' 
-                onClick={loginClick}>Log In</h1> 
+                onClick={loginClick}>Log In</h1> </div>
                 <button className='moving-btn'>Sign Up</button>
                 </div>
 
@@ -119,29 +125,29 @@ function Modal(props) {
             <div className="modal-body">
               <form  onSubmit={handleSignup} className="form signin signin-form">
                 <div className="field">
-                <input type="text" value={username} id='username' onChange={(e)=>setUsername(e.target.value)} className="form-username signin-input" required/>
-                <label for="username">Username</label>
+                <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} className="form-username signin-input" required/>
+                <label htmlFor="username">Username</label>
                 </div>
                 <div className="field">
-                <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-email signin-input" required/>
+                <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)}  pattern='[a-zA-z0-9.#]+@gmail.com' className="form-email signin-input" required/>
                 <label>Email</label>
                 </div>
                 <div className="field">
-                <input type="number" value={phone} onChange={(e)=>setPhone(e.target.value)} className="form-phone signin-input" required/>
+                <input type="number" value={phone} onChange={(e)=>setPhone(e.target.value)}  className="form-phone signin-input" required/>
                 <label>Number</label>
                 </div>
                 <div className="field">
                 <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="form-password signin-input" required/>
                 <label>Password</label>
                 </div>
-                <Button>Sign Up</Button>
+                <Button buttonStyle='btn--secondary'>Sign Up</Button>
                 </form> 
 
 
                 <form  onSubmit={handleLogin} className="form login">
                 
                   <div className="field">
-                  <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-email signin-input" required/>
+                  <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-email signin-input"  pattern="[a-z0-9._%+-]+@gmail.com" required/>
                   <label>Email</label>
                   </div>
                   
@@ -149,7 +155,7 @@ function Modal(props) {
                   <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="form-password signin-input" required/>
                   <label>Password</label>
                   </div>
-                  <Button>Log In</Button>
+                  <Button buttonStyle='btn--secondary'>Log In</Button>
                 </form> 
 
             </div>

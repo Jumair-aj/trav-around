@@ -47,13 +47,15 @@
   
   .footer-links {
     width: 100%;
-    max-width: 1000px;
+    /* max-width: 1000px; */
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
   }
   
   .footer-link-wrapper {
+    width: 100%;
     display: flex;
+    justify-content: space-around;
   }
   
   .footer-link-items {
@@ -160,8 +162,12 @@
   }
   
   @media screen and (max-width: 768px) {
-  }
-  .footer-link-items img{
-    width: 100px;
-    height: 100px;
+    .footer-link-items img{
+      width: 300px;
+      /* height: 100px; */
+    }
+    .footer-link-wrapper{
+      display: none;
+    }
+    
   }

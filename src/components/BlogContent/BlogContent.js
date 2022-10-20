@@ -5,7 +5,7 @@ import './BlogContent.css'
 import {Link} from 'react-router-dom'
 import BlogModal from '../../Modal/BlogModal'
 import { AuthContext } from '../../store/Context'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { db } from '../../Firebase/config'
 
 function BlogContent() {
@@ -17,12 +17,22 @@ function BlogContent() {
     useEffect( ()  => {
 
       const getData = async ()=>{
-          const data = await getDocs(blogViewCollectionRef)
+
+        const q = query(blogViewCollectionRef, orderBy('createdAt','desc'));
+        
+        // const querySnapshot = await getDocs(q);
+        // querySnapshot.forEach((doc) => {
+        //   // doc.data() is never undefined for query doc snapshots
+        //   console.log(doc.id, " => ", doc.data());
+        // });
+
+
+          const data = await getDocs(q)
           setBlogItems(data.docs.map((doc) =>({...doc.data(),id:doc.id})))
           console.log(blogItems)
       }
       getData();
-    },[])
+    },{})
     
 
   return (

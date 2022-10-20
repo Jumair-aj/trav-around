@@ -4,7 +4,7 @@
     right:0;
     top:0;
     bottom:0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +23,7 @@
     transform: translateY(-200px);
     transition: all 0.3s ease-in-out;
     border-radius: 3px;
-    box-shadow: rgb(94 92 92) 2px 3px 9px 0px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .modal.show .modal-content{
     transform: translateY(0);
@@ -38,7 +38,7 @@
 .modal-title{
     margin: 0;
     display: flex;
-    background-image: linear-gradient(45deg, #406fb9, #8191a5);;
+    background-image: linear-gradient(295deg, #0a4bc2, #7ec3f1);
     border-radius: 50px;
     width: 75%;
     align-items: center;
@@ -97,6 +97,13 @@
  align-items: center;
  flex-direction: column;
 }
+.login-form{
+    width: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+}
 .signin-input{
     height: 35px;
     margin: 20px 0;
@@ -119,7 +126,7 @@ label {
     transition: 0.2s ease all;
     font-size: 15px;
   }
-  input:focus~label,input:valid ~ label{
+input:focus~label,input:valid ~ label{
     top:5px;
     font-size:12px;
   }

@@ -43,7 +43,7 @@ function Header() {
     <>
     <nav className="navbar">
         <div className="navbar-container">
-            <Link to="/" className='navbar-logo'>Jr</Link>
+            <Link to="/" className='navbar-logo'><img src="images/trav.png" alt="" /></Link>
             <div className="menu-icon" onClick={handleClick}>
                 <i className={click ? 'fas fa-times' : 'fas fa-bars'}></i>
             </div>
@@ -68,13 +68,13 @@ function Header() {
                         Gallery
                     </Link>
                 </li>
-               {!button ? <li className="nav-item" >
+               {!button ? <li className="nav-item " >
 
 
                 {user ? <span className='user-name' onClick={logout}>{user.displayName}</span> : button ? null : <Button buttonStyle='btn--outline' onClick={()=>{setModalShow(!modalShow);closeMobileMenu();}}>Sign Up</Button>}
                 </li>: ""}
             </ul>
-            {user ? <span className='user-name' onClick={logout}>{user.displayName}</span> : button && <Button buttonStyle='btn--outline' onClick={()=>setModalShow(!modalShow)}>Sign Up</Button>}
+            {button && user ? <span className='user-name' onClick={logout}>{user.displayName}</span> : button && <Button buttonStyle='btn--inline' onClick={()=>setModalShow(!modalShow)}>Sign Up</Button>}
         </div>
     </nav>
     <SignupModal show = {modalShow} setClose={()=>setModalShow(false)}/>
