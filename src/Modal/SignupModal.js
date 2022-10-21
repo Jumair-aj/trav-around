@@ -129,7 +129,7 @@ function Modal(props) {
                 <label htmlFor="username">Username</label>
                 </div>
                 <div className="field">
-                <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)}  pattern='[a-zA-z0-9.#]+@gmail.com' className="form-email signin-input" required/>
+                <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)}  pattern='[a-zA-Z0-9.#]+@gmail.com' className="form-email signin-input" required/>
                 <label>Email</label>
                 </div>
                 <div className="field">
@@ -147,7 +147,7 @@ function Modal(props) {
                 <form  onSubmit={handleLogin} className="form login">
                 
                   <div className="field">
-                  <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-email signin-input"  pattern="[a-z0-9._%+-]+@gmail.com" required/>
+                  <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-email signin-input"  pattern="[a-zA-Z0-9.#]+@gmail.com" required/>
                   <label>Email</label>
                   </div>
                   

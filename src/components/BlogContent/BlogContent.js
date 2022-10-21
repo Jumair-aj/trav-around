@@ -18,7 +18,7 @@ function BlogContent() {
 
       const getData = async ()=>{
 
-        const q = query(blogViewCollectionRef, orderBy('createdAt','desc'));
+        const q = query(blogViewCollectionRef, orderBy('createdAt'));
         
         // const querySnapshot = await getDocs(q);
         // querySnapshot.forEach((doc) => {
@@ -28,7 +28,11 @@ function BlogContent() {
 
 
           const data = await getDocs(q)
-          setBlogItems(data.docs.map((doc) =>({...doc.data(),id:doc.id})))
+          const snapshot = data.docs.map((doc) =>({
+            ...doc.data(),
+            id:doc.id,
+          }))
+          setBlogItems(snapshot)
           console.log(blogItems)
       }
       getData();
@@ -74,5 +78,6 @@ function BlogContent() {
         </div>
     )
 }
+
 
 export default BlogContent

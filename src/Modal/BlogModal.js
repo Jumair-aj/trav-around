@@ -52,6 +52,7 @@ function BlogModal(props) {
             
           })
           props.setClose()
+          // window.location.reload();
       }
       
   return (
@@ -65,8 +66,8 @@ function BlogModal(props) {
                     <div className="modal-body">
                     <form  onSubmit={handleNewBlog} className="form create-blog-form">
                 <div className="field">
-                <input type="text" maxLength={30} value={heading} id='username' onChange={(e)=>setHeading(e.target.value)} className="form-username signin-input" required/>
-                <label for="username">Heading</label>
+                <input type="text" maxLength={100} value={heading} id='username' onChange={(e)=>setHeading(e.target.value)} className="form-username signin-input" required/>
+                <label htmlFor="username">Heading</label>
                 </div>
                 <div className="field">
                 <input type="text" value={description} onChange={(e)=>setDescription(e.target.value)} className="form-email signin-input" required/>
