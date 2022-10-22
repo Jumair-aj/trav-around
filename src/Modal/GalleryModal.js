@@ -3,17 +3,20 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import React, { useContext, useState } from 'react'
 import { v4 } from 'uuid'
 import Button from '../components/Button/Button'
+import Loader from '../components/Loader/Loader'
 import { db, storage } from '../Firebase/config'
 import { AuthContext } from '../store/Context'
 import './Modal.css'
 
 function GalleryModal(props) {
+  const [isLoading, setIsLoading] = useState(false)
     const [place,setPlace] = useState('')
     const {user} = useContext(AuthContext)
     const [galleryImage,setGalleryImage] = useState('')
     const galleryImageCollection = collection(db,'imageDetails')
     const date = new Date()
     const handleImageSubmit = (e) =>{
+        setIsLoading(true)
         e.preventDefault();
         const galleryImageRef = ref(storage, `galleryImages/${galleryImage.name + v4()}`);
         uploadBytes(galleryImageRef,galleryImage).then(()=>{
@@ -29,10 +32,13 @@ function GalleryModal(props) {
                 })
             })
         })
+        setIsLoading(false)
+
         props.setClose()
     }
 
-  return (
+  return (<>
+  {isLoading ? <Loader/> :''}
     <div className={`modal ${props.show ? 'show' : ''}`} onClick={props.setClose}>
     <div className="modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
@@ -65,7 +71,7 @@ function GalleryModal(props) {
             </div>
         </div>
     </div>
-
+    </>
     )
 }
 

@@ -7,8 +7,10 @@ import {collection,addDoc} from 'firebase/firestore'
 
 // import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../store/Context';
+import Loader from '../components/Loader/Loader';
 
 function Modal(props) {
+  const [isLoading, setIsLoading] = useState(false)
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -42,6 +44,7 @@ function Modal(props) {
 
 
   const handleSignup = async (e)=>{
+    setIsLoading(true)
     e.preventDefault()
     try{
     const result = await createUserWithEmailAndPassword(auth, email, password)
@@ -56,7 +59,9 @@ function Modal(props) {
     })
     setUser(result.user)
     console.log(user)
+    
     loginClick()
+    setIsLoading(false)
     // setEmail('')
     // setPassword('')
     // setPhone('')
@@ -72,6 +77,8 @@ function Modal(props) {
     
 
     const handleLogin = async (e)=>{
+    setIsLoading(true)
+
       e.preventDefault()
       try{
       const result = await signInWithEmailAndPassword(auth, email, password)
@@ -83,7 +90,9 @@ function Modal(props) {
       // })
       setUser(result.user)
       setEmail('')
+
       setPassword('')
+      setIsLoading(false)
       setClose()
       console.log(result)
       }catch(error){
@@ -108,8 +117,8 @@ function Modal(props) {
       }
 
   return (
-    
-    <div className={`modal ${props.show ? 'show' : ''}`} onClick={props.setClose}>
+    <>
+    {isLoading ? <Loader/>:""} <div className={`modal ${props.show ? 'show' : ''}`} onClick={props.setClose}>
         <div className="modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
                 <div className="modal-title">
@@ -164,6 +173,7 @@ function Modal(props) {
             </div>
         </div>
     </div>
+    </>
   )
 }
 

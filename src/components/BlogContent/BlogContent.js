@@ -13,12 +13,13 @@ function BlogContent() {
     const [blogItems,setBlogItems] = useState([])
     const {user} = useContext(AuthContext)
     const blogViewCollectionRef = collection(db,'blog')
+    const [count,setCount] = useState(0)
 
     useEffect( ()  => {
 
       const getData = async ()=>{
 
-        const q = query(blogViewCollectionRef, orderBy('createdAt'));
+        const q = query(blogViewCollectionRef,orderBy('id','asc'));
         
         // const querySnapshot = await getDocs(q);
         // querySnapshot.forEach((doc) => {
@@ -32,8 +33,9 @@ function BlogContent() {
             ...doc.data(),
             id:doc.id,
           }))
+          setCount(snapshot.length)
+          snapshot.reverse()
           setBlogItems(snapshot)
-          console.log(blogItems)
       }
       getData();
     },{})
@@ -44,7 +46,7 @@ function BlogContent() {
             <div className="blog-body">
                 <div className="blog-btn">
                     {user? <Button buttonStyle='btn--secondary' className='blog-btn' onClick={()=>setModalShow(!modalShow)}>Create Blog</Button>: ""}
-                    <BlogModal show = {modalShow} setClose={()=>setModalShow(false)}/>
+                    <BlogModal show = {modalShow} snap={count} setClose={()=>setModalShow(false)}/>
                 </div>
           <div className='cards'>
                 <div className='cards__container'>

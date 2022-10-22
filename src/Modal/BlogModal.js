@@ -6,18 +6,20 @@ import { db, storage } from '../Firebase/config';
 import {v4} from 'uuid'
 import { addDoc, collection } from 'firebase/firestore';
 import { AuthContext } from '../store/Context';
+import Loader from '../components/Loader/Loader';
 
 
 function BlogModal(props) {
-
-    const [heading, setHeading] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+   const [heading, setHeading] = useState('')
     const [description,setDescription] = useState('')
     const [image,setImage] = useState('')
     const blogCollectionRef = collection(db,'blog')
     const date = new Date()
     const {user} = useContext(AuthContext)
     const setClose = props
-
+   
+    const snap = props
     const escapeKeyClose = useCallback( (e) =>{
         if ((e.charCode || e.keyCode) === 27){
           setClose()
@@ -28,18 +30,22 @@ function BlogModal(props) {
       
       useEffect(() => {
         document.body.addEventListener('keydown',escapeKeyClose)
+        console.log(snap.snap)
+
         return function cleanup() {
           document.body.removeEventListener('keydown',escapeKeyClose)
         }
       }, [escapeKeyClose])
 
       const handleNewBlog = (e)=>{
+        setIsLoading(true)
         e.preventDefault()
         const imageRef = ref(storage,`blogImages/${image.name + v4()}`);
         uploadBytes(imageRef,image).then(()=>{
            getDownloadURL(imageRef).then((url)=>{
              console.log(url)
              addDoc(blogCollectionRef,{
+              id:snap.snap,
               userId:user.uid,
               by:user.displayName,
               url,
@@ -51,12 +57,15 @@ function BlogModal(props) {
             })
             
           })
+          setIsLoading(false)
           props.setClose()
+          console.log(snap)
           // window.location.reload();
       }
       
   return (
-    <div className={`modal ${props.show ? 'show' : ''}`} onClick={props.setClose}>
+  <>
+  {isLoading ? <Loader/> :""}  <div className={`modal ${props.show ? 'show' : ''}`} onClick={props.setClose}>
     <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className="modal-header">
                     <div className="modal-title1">
@@ -74,7 +83,7 @@ function BlogModal(props) {
                 <label>Description</label>
                 </div>
                 <div className="field">
-          <img alt="Posts" width="200px" height="200px" src={ image ? URL.createObjectURL(image) : ''}></img>
+          <img alt="" width="200px" height="200px" src={ image ? URL.createObjectURL(image) : ''}></img>
 
                 <input type="file" onChange={(e)=>setImage(e.target.files[0])} className="form-phone signin-input" required/>
                 <label>Upload an Image</label>
@@ -88,6 +97,7 @@ function BlogModal(props) {
                     </div>
             </div>
         </div>
+        </>
     )
 }
 
